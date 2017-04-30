@@ -32,7 +32,10 @@
     //   p = document.createElement('p');
     //   words.appendChild(p);
     // }
-     const poopScript = transcript.replace(/poop|poo|shit|dump|大便|便便|狗屎|馬英九|gorilla/gi, '💩');
+    transcript = transcript.replace(/馬英九/gi,'🐎');
+     const poopScript = transcript.replace(/poop|poo|shit|dump|大便|便便|狗屎|gorilla/gi, '💩');
+
+
       p.textContent = poopScript;
 
       if (e.results[0].isFinal) {
