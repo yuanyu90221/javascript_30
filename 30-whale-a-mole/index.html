@@ -82,8 +82,13 @@
       this.classList.remove('up');
       scoreBoard.textContent = score;
   }
+  function shrink(e){
+      console.log('mouseover')
+      this.classList.remove('up');
+  }
 
   moles.forEach(mole => mole.addEventListener('click', bonk));
+  moles.forEach(mole => mole.addEventListener('mouseover', shrink));
 </script>
 </body>
 </html>
