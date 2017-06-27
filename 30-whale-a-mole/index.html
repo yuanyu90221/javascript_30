@@ -38,6 +38,8 @@
   const scoreBoard = document.querySelector('.score');
   // record the last showup idx to prevent repeat
   let lastHole;
+  let lastHit = null;
+  let lastHitTime = 0;
   let timeUp = false;
   const moles = document.querySelectorAll('.mole');
   let score = 0;
@@ -73,12 +75,29 @@
       timeUp = false;
       score = 0;
       peep();
-      setTimeout(() => timeUp = true, 10000);
+      setTimeout(() => timeUp = true, 20000);
   }
 
   function bonk(e){
       if(!e.isTrusted) return; // cheated;
-      score++;
+      // 加入防止 combo
+      const currentHitTime = Date.now();
+      if(lastHit!==null){
+        if(lastHit === e.target && (currentHitTime -lastHitTime > 1000)){
+          score++;
+          lastHitTime = currentHitTime;
+        }
+        else if(lastHit !== e.target){
+          score++;
+          lastHitTime = currentHitTime;
+          lastHit = e.target;
+        }
+      }
+      else {
+        score++;
+        lastHit = e.target;
+        lastHitTime = currentHitTime;
+      }
       this.classList.remove('up');
       scoreBoard.textContent = score;
   }
